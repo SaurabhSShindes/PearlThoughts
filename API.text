@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+
+struct Appointment {
+    int doctorId;
+    int patientId;
+    std::string appointmentTime;
+    std::string appointmentDate;
+};
+
+struct Doctor {
+    int doctorId;
+    std::string name;
+    std::string specialty;
+    std::vector<std::string> availability; // Weekly schedule
+    int maxPatientsPerDay; // Maximum patients doctor can consult in a day
+};
+
+#include <vector>
+
+std::vector<Doctor> doctors = {
+    {1, "Dr. Smith", "Cardiology", {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"}, 10},
+    {2, "Dr. Johnson", "Dermatology", {"Tuesday", "Thursday", "Friday"}, 15},
+    // Add more doctors as needed
+};
+
+std::vector<Appointment> appointments;
+
+void listDoctors() {
+    for (const auto& doctor : doctors) {
+        std::cout << "Doctor ID: " << doctor.doctorId << ", Name: " << doctor.name << ", Specialty: " << doctor.specialty << "\n";
+    }
+}
+
+void getDoctorDetails(int doctorId) {
+    for (const auto& doctor : doctors) {
+        if (doctor.doctorId == doctorId) {
+            std::cout << "Doctor ID: " << doctor.doctorId << "\n";
+            std::cout << "Name: " << doctor.name << "\n";
+            std::cout << "Specialty: " << doctor.specialty << "\n";
+            std::cout << "Availability: ";
+            for (const auto& day : doctor.availability) {
+                std::cout << day << " ";
+            }
+            std::cout << "\n";
+            std::cout << "Max Patients per Day: " << doctor.maxPatientsPerDay << "\n";
+            return;
+        }
+    }
+    std::cout << "Doctor not found.\n";
+}
+
+void bookAppointment(int doctorId, int patientId, std::string appointmentTime, std::string appointmentDate) {
+    // Logic to book the appointment
+    // This would typically involve checking availability and updating the appointments vector
+    appointments.push_back({doctorId, patientId, appointmentTime, appointmentDate});
+    std::cout << "Appointment booked successfully!\n";
+}
+
+int main() {
+    std::cout << "List of Doctors:\n";
+    listDoctors();
+
+    std::cout << "\nDoctor Details:\n";
+    getDoctorDetails(1);
+
+    std::cout << "\nBooking an Appointment:\n";
+    bookAppointment(1, 101, "18:00", "2023-10-05");
+
+    return 0;
+}
